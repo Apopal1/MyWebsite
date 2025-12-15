@@ -133,7 +133,7 @@
   }
 
   // Filters
-  const chips = $$(".chip");
+  const chips = $$(".chip[data-filter]");
   const cards = $$(".projects .card");
   chips.forEach(chip => {
     chip.addEventListener("click", () => {
@@ -162,6 +162,12 @@
   const modalDesc = $("#modalDesc");
   const modalBullets = $("#modalBullets");
   const modalLinks = $("#modalLinks");
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+  }
 
   function openProject(card){
     if (!modal) return;
@@ -197,12 +203,6 @@
     }
   }
 
-  function escapeHtml(str){
-    return String(str)
-      .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;").replaceAll("'","&#039;");
-  }
-
   cards.forEach(card => card.addEventListener("click", () => openProject(card)));
 
   // CMDK (command palette)
@@ -215,6 +215,7 @@
   const commands = [
     { name: "Go to Projects", hint: "projects", action: () => scrollToHash("#projects") },
     { name: "Go to Stack", hint: "stack", action: () => scrollToHash("#stack") },
+    { name: "Go to Homelab", hint: "homelab", action: () => scrollToHash("#homelab") },
     { name: "Go to Path", hint: "experience", action: () => scrollToHash("#experience") },
     { name: "Go to Contact", hint: "contact", action: () => scrollToHash("#contact") },
     { name: "Back to Top", hint: "top", action: () => scrollToHash("#top") },
@@ -327,6 +328,130 @@
     // No motion: show reveals
     $$(".reveal").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
     $$(".stat__num").forEach(el => { el.textContent = el.dataset.count || "0"; });
+  }
+
+  // Homelab diagram interactions (reuses modal)
+  const nodeInfo = {
+    internet: {
+      title: "Internet / ISP",
+      desc: "Το upstream σημείο. Στόχος: ελάχιστα ανοίγματα προς τα μέσα, monitoring για outages, και καθαρή πολιτική WAN.",
+      bullets: [
+        "No direct exposure of internal services",
+        "ISP modem/router in bridge όπου γίνεται",
+        "Health checks / uptime tracking"
+      ],
+      links: []
+    },
+    router: {
+      title: "Router / Firewall",
+      desc: "Κεντρικό σημείο policy: VLANs, ACLs, DHCP/DNS. Εδώ μπαίνει το security baseline.",
+      bullets: [
+        "VLAN segmentation (IoT, Servers, Clients)",
+        "Firewall rules / allowlists",
+        "DNS/DHCP hygiene + static leases"
+      ],
+      links: []
+    },
+    tailscale: {
+      title: "Remote Access (Tailscale/VPN)",
+      desc: "Ασφαλής πρόσβαση χωρίς risky port forwards. Ιδανικό για admin tasks και remote troubleshooting.",
+      bullets: [
+        "Device auth + key rotation mindset",
+        "Granular access (ACLs) όπου γίνεται",
+        "Remote admin χωρίς ανοίγματα WAN"
+      ],
+      links: []
+    },
+    proxmox: {
+      title: "Proxmox Host",
+      desc: "Η βάση του lab: VMs/CTs για υπηρεσίες, templates, snapshots, και backups με δομημένη διαδικασία.",
+      bullets: [
+        "VM templates & reproducible provisioning",
+        "Snapshots before upgrades",
+        "Backup strategy + restore tests"
+      ],
+      links: []
+    },
+    monitoring: {
+      title: "Monitoring / Observability",
+      desc: "Ό,τι δεν μετριέται δεν υποστηρίζεται. Logs/metrics/alerts για να μειώσεις downtime και χρόνο διάγνωσης.",
+      bullets: [
+        "Metrics: CPU/RAM/disk/network",
+        "Logs aggregation για troubleshooting",
+        "Alerts με thresholds που έχουν νόημα"
+      ],
+      links: []
+    },
+    services: {
+      title: "Apps / Services",
+      desc: "Η “παραγωγική” πλευρά του lab: services όπως Home Assistant, MQTT, self-hosted apps (π.χ. InvenTree).",
+      bullets: [
+        "Service isolation (VM/CT) όπου χρειάζεται",
+        "Versioned upgrades + rollback plan",
+        "Backups per service + secrets hygiene"
+      ],
+      links: []
+    }
+  };
+
+  const diagram = document.getElementById("diagram");
+  const legendChips = diagram ? diagram.parentElement.querySelectorAll("[data-hl]") : [];
+
+  function openNode(nodeKey){
+    const info = nodeInfo[nodeKey];
+    if (!info || !modal) return;
+
+    modalTitle.textContent = info.title;
+    modalDesc.textContent = info.desc;
+
+    modalBullets.innerHTML = info.bullets.map((b, i) => `
+      <div class="bullet"><i>#${String(i+1).padStart(2,"0")}</i><div>${escapeHtml(b)}</div></div>
+    `).join("");
+
+    modalLinks.innerHTML = (info.links || []).map(l => `
+      <a class="btn btn--primary magnetic" href="${l.href}" target="_blank" rel="noreferrer">${escapeHtml(l.label)}</a>
+    `).join("");
+
+    modal.showModal();
+  }
+
+  if (diagram) {
+    const nodes = diagram.querySelectorAll(".node");
+
+    nodes.forEach(n => {
+      n.addEventListener("click", () => openNode(n.dataset.node));
+      n.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openNode(n.dataset.node);
+        }
+      });
+    });
+
+    // Legend highlighting
+    const applyHighlight = (mode) => {
+      nodes.forEach(n => n.classList.remove("is-dim","is-hot"));
+
+      if (mode === "all") return;
+
+      const hot = new Set();
+      if (mode === "security") ["router","tailscale"].forEach(x => hot.add(x));
+      if (mode === "ops") ["proxmox","services"].forEach(x => hot.add(x));
+      if (mode === "observability") ["monitoring","proxmox"].forEach(x => hot.add(x));
+
+      nodes.forEach(n => {
+        if (hot.has(n.dataset.node)) n.classList.add("is-hot");
+        else n.classList.add("is-dim");
+      });
+    };
+
+    legendChips.forEach(ch => {
+      ch.addEventListener("click", () => {
+        legendChips.forEach(c => c.classList.remove("is-active"));
+        ch.classList.add("is-active");
+        applyHighlight(ch.dataset.hl);
+      });
+    });
   }
 
 })();

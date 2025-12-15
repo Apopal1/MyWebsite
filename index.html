@@ -33,7 +33,10 @@
     "name": "Apostolos Paliouras",
     "jobTitle": "Developer / SysAdmin",
     "url": "",
-    "sameAs": [],
+    "sameAs": [
+      "https://github.com/Apopal1",
+      "https://www.linkedin.com/in/apostolos-paliouras-000354239/"
+    ],
     "knowsAbout": ["Backend", "Networking", "Linux", "Virtualization", "DevOps", "UWB RTLS", "MQTT", "C", "Java", "JavaScript"]
   }
   </script>
@@ -57,6 +60,7 @@
       <nav class="nav__links" aria-label="Primary">
         <a href="#projects">Projects</a>
         <a href="#stack">Stack</a>
+        <a href="#homelab">Homelab</a>
         <a href="#experience">Path</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -99,14 +103,14 @@
           </h1>
 
           <p class="subhead reveal">
-            Developer με έμφαση στο backend, τώρα κάνω στροφή προς SysAdmin/Infra.
+            Developer με έμφαση στο backend, με ενεργή μετάβαση προς SysAdmin/Infrastructure.
             Μου αρέσει να ενώνω <strong>code + ops</strong>: monitoring, automation, deployments, και “boring reliability”.
           </p>
 
           <div class="hero__cta reveal">
             <a class="btn btn--primary magnetic" href="#projects">Δες δουλειά</a>
             <a class="btn btn--ghost magnetic" href="#experience">Η διαδρομή μου</a>
-            <button class="btn btn--ghost magnetic" id="copyEmail" type="button" data-email="youremail@example.com">
+            <button class="btn btn--ghost magnetic" id="copyEmail" type="button" data-email="apostolospaliouras22@gmail.com">
               Copy email
             </button>
           </div>
@@ -157,11 +161,11 @@
                 <small>Δες case studies</small>
               </span>
             </button>
-            <button class="mini-card magnetic" data-jump="#stack" type="button">
-              <span class="mini-card__icon">🧰</span>
+            <button class="mini-card magnetic" data-jump="#homelab" type="button">
+              <span class="mini-card__icon">🧪</span>
               <span class="mini-card__txt">
-                <strong>Stack & tooling</strong>
-                <small>Τι χρησιμοποιώ</small>
+                <strong>Homelab diagram</strong>
+                <small>Δες infra setup</small>
               </span>
             </button>
           </div>
@@ -186,7 +190,6 @@
         </div>
 
         <div class="grid projects" id="projectGrid">
-          <!-- Card template: set data-tags + data-title + data-desc + data-links -->
           <article class="card reveal" data-tags="iot,infra,backend" data-title="UWB RTLS (ESP8266 + DWM1000 + MQTT + TDMA)"
             data-desc="Real-time positioning & proximity system. Anchors/tags με DW1000, συγχρονισμός TDMA, events μέσω MQTT για automation (π.χ. motor triggers < 1m)."
             data-bullets="Low-latency ranging;Multi-tag scheduling;MQTT events → automation;Serial debugging & Web UI roadmap"
@@ -204,7 +207,7 @@
 
           <article class="card reveal" data-tags="infra" data-title="Homelab: Proxmox + VLANs + Backups + Remote Access"
             data-desc="Home infrastructure με virtualization, segmented networking, monitoring και ασφαλές remote access."
-            data-bullets="Proxmox clusters & templates;VLAN segmentation;Offsite backups;Tailscale / VPN access"
+            data-bullets="Proxmox templates;VLAN segmentation;Offsite backups;Tailscale / VPN access"
             data-links='[{"label":"Write-up","href":"#"},{"label":"Diagram","href":"#"}]'>
             <div class="card__top">
               <div class="badge badge--muted">Infra</div>
@@ -293,7 +296,102 @@
       </div>
     </section>
 
-    <!-- PATH / EXPERIENCE -->
+    <!-- HOMELAB DIAGRAM -->
+    <section id="homelab" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="title reveal">Homelab</h2>
+          <p class="lead reveal">
+            Ένα “living” εργαστήριο για sysadmin skills: segmentation, services, backups, remote access, observability.
+            Πάτα πάνω σε node για λεπτομέρειες.
+          </p>
+        </div>
+
+        <div class="grid two">
+          <div class="panel reveal">
+            <div class="homelab-head">
+              <div class="pill">Interactive diagram</div>
+              <div class="pill pill--muted">Click nodes · Esc close · Ctrl/⌘+K</div>
+            </div>
+
+            <div class="diagram" id="diagram">
+              <svg viewBox="0 0 920 520" role="img" aria-label="Homelab network diagram">
+                <!-- Links -->
+                <path class="wire" d="M170 120 C300 120, 280 120, 410 120" />
+                <path class="wire" d="M510 120 C640 120, 640 120, 760 120" />
+                <path class="wire" d="M510 150 C510 220, 510 220, 510 285" />
+                <path class="wire" d="M510 320 C430 380, 430 380, 330 420" />
+                <path class="wire" d="M510 320 C590 380, 590 380, 690 420" />
+
+                <!-- Nodes -->
+                <g class="node" tabindex="0" data-node="internet">
+                  <rect x="60" y="70" rx="18" ry="18" width="220" height="100"></rect>
+                  <text x="170" y="112" text-anchor="middle" class="node__title">Internet / ISP</text>
+                  <text x="170" y="142" text-anchor="middle" class="node__sub">Public WAN</text>
+                </g>
+
+                <g class="node" tabindex="0" data-node="router">
+                  <rect x="350" y="70" rx="18" ry="18" width="320" height="100"></rect>
+                  <text x="510" y="112" text-anchor="middle" class="node__title">Router / Firewall</text>
+                  <text x="510" y="142" text-anchor="middle" class="node__sub">VLANs · ACLs · DHCP/DNS</text>
+                </g>
+
+                <g class="node" tabindex="0" data-node="tailscale">
+                  <rect x="700" y="70" rx="18" ry="18" width="200" height="100"></rect>
+                  <text x="800" y="112" text-anchor="middle" class="node__title">Remote Access</text>
+                  <text x="800" y="142" text-anchor="middle" class="node__sub">Tailscale / VPN</text>
+                </g>
+
+                <g class="node" tabindex="0" data-node="proxmox">
+                  <rect x="350" y="260" rx="18" ry="18" width="320" height="120"></rect>
+                  <text x="510" y="305" text-anchor="middle" class="node__title">Proxmox Host</text>
+                  <text x="510" y="335" text-anchor="middle" class="node__sub">VMs · Containers · Backups</text>
+                  <text x="510" y="365" text-anchor="middle" class="node__sub2">Services layer</text>
+                </g>
+
+                <g class="node" tabindex="0" data-node="monitoring">
+                  <rect x="170" y="390" rx="18" ry="18" width="320" height="105"></rect>
+                  <text x="330" y="430" text-anchor="middle" class="node__title">Monitoring</text>
+                  <text x="330" y="460" text-anchor="middle" class="node__sub">Logs · Metrics · Alerts</text>
+                </g>
+
+                <g class="node" tabindex="0" data-node="services">
+                  <rect x="530" y="390" rx="18" ry="18" width="320" height="105"></rect>
+                  <text x="690" y="430" text-anchor="middle" class="node__title">Apps / Services</text>
+                  <text x="690" y="460" text-anchor="middle" class="node__sub">Home Assistant · MQTT · InvenTree</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="homelab-legend">
+              <button class="chip is-active" type="button" data-hl="all">All</button>
+              <button class="chip" type="button" data-hl="security">Security</button>
+              <button class="chip" type="button" data-hl="ops">Ops</button>
+              <button class="chip" type="button" data-hl="observability">Observability</button>
+            </div>
+          </div>
+
+          <div class="panel reveal">
+            <h3>Design goals</h3>
+            <ul class="list">
+              <li><span>Segmentation</span><em>VLANs/ACLs ώστε να περιορίζονται lateral moves</em></li>
+              <li><span>Reliability</span><em>Backups, restore testing, predictable upgrades</em></li>
+              <li><span>Observability</span><em>Metrics/logs για γρήγορο troubleshooting</em></li>
+              <li><span>Remote</span><em>Secure access με VPN χωρίς risky port forwards</em></li>
+            </ul>
+
+            <div class="note">
+              <div class="note__title">Tip</div>
+              <div class="note__text">
+                Αν θες, μπορώ να το προσαρμόσω 1:1 στο δικό σου setup (π.χ. VLAN IDs, services, backups, monitoring stack).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
     <section id="experience" class="section">
       <div class="container">
         <div class="section__head">
@@ -302,30 +400,38 @@
         </div>
 
         <div class="timeline" aria-label="Experience timeline">
+
           <div class="step reveal">
             <div class="step__dot"></div>
             <div class="step__card">
-              <h3>Developer foundations</h3>
-              <p>Backend-first νοοτροπία: δομή, καθαρότητα, debugging, integration.</p>
-              <div class="meta">C · Java · JavaScript</div>
+              <h3>Intern Software Developer — Polytech (Larisa)</h3>
+              <p>
+                Πρακτική άσκηση 6 μηνών ως προγραμματιστής. Συμμετοχή σε ομάδα 3 ατόμων
+                για την ανάπτυξη cross-platform εφαρμογής με .NET MAUI.
+                Εστίαση σε καθαρή αρχιτεκτονική, components και ομαδική ανάπτυξη.
+              </p>
+              <div class="meta">
+                2024 · .NET MAUI · C# · Cross-platform · Team collaboration
+              </div>
             </div>
           </div>
+
           <div class="step reveal">
             <div class="step__dot"></div>
             <div class="step__card">
-              <h3>Infra curiosity</h3>
-              <p>Homelab, virtualization, remote access, backups, networking πρακτικά.</p>
-              <div class="meta">Proxmox · Linux · Tailscale</div>
+              <h3>Software Developer / Junior SysAdmin — Polytech</h3>
+              <p>
+                Μετά το πέρας της πρακτικής προσλήφθηκα και συνεχίζω την ανάπτυξη
+                της MAUI εφαρμογής. Παράλληλα ανέλαβα τη συντήρηση και αναδιοργάνωση
+                του εσωτερικού δικτύου και των συστημάτων.
+                Έχω εξελιχθεί στον άτυπο SysAdmin της ομάδας.
+              </p>
+              <div class="meta">
+                2024 — σήμερα · Linux · Networking · MAUI · Infrastructure · Troubleshooting
+              </div>
             </div>
           </div>
-          <div class="step reveal">
-            <div class="step__dot"></div>
-            <div class="step__card">
-              <h3>Systems mindset</h3>
-              <p>Monitoring, automation, operational playbooks — “make it run, keep it running”.</p>
-              <div class="meta">Observability · Automation · Security</div>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
@@ -337,10 +443,28 @@
           <h2>Let’s build something reliable.</h2>
           <p>Στείλε μήνυμα ή δες τα links μου. (Το email button κάνει copy.)</p>
           <div class="cta__row">
-            <button class="btn btn--primary magnetic" id="copyEmail2" type="button" data-email="youremail@example.com">Copy email</button>
-            <a class="btn btn--ghost magnetic" href="#" target="_blank" rel="noreferrer">GitHub</a>
-            <a class="btn btn--ghost magnetic" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="btn btn--ghost magnetic" href="#" target="_blank" rel="noreferrer">CV (PDF)</a>
+            <button class="btn btn--primary magnetic" id="copyEmail2" type="button" data-email="apostolospaliouras22@gmail.com">Copy email</button>
+
+            <a class="btn btn--ghost magnetic"
+               href="https://github.com/Apopal1"
+               target="_blank"
+               rel="noreferrer">
+               GitHub
+            </a>
+
+            <a class="btn btn--ghost magnetic"
+               href="https://www.linkedin.com/in/apostolos-paliouras-000354239/"
+               target="_blank"
+               rel="noreferrer">
+               LinkedIn
+            </a>
+
+            <a class="btn btn--ghost magnetic"
+               href="cv.pdf"
+               target="_blank"
+               rel="noreferrer">
+               CV (PDF)
+            </a>
           </div>
         </div>
 
@@ -353,7 +477,7 @@
     </section>
   </main>
 
-  <!-- Project modal -->
+  <!-- Project/Node modal (reused) -->
   <dialog class="modal" id="projectModal" aria-label="Project details">
     <form method="dialog" class="modal__inner">
       <div class="modal__top">
@@ -376,7 +500,7 @@
   <dialog class="cmdk" id="cmdk" aria-label="Command palette">
     <div class="cmdk__inner" role="dialog" aria-modal="true">
       <div class="cmdk__head">
-        <input id="cmdInput" type="text" autocomplete="off" placeholder="Type a command… (projects, stack, contact, top)" />
+        <input id="cmdInput" type="text" autocomplete="off" placeholder="Type a command… (projects, stack, homelab, contact, top)" />
         <button class="btn btn--ghost" id="cmdClose" type="button" aria-label="Close">Esc</button>
       </div>
       <div class="cmdk__list" id="cmdList" role="listbox" aria-label="Commands"></div>

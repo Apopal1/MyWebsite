@@ -561,3 +561,96 @@ kbd{
   .marquee__track{ animation: none !important; }
   .blink{ animation: none !important; }
 }
+
+/* HOMELAB DIAGRAM */
+.homelab-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.diagram{
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  border-radius: 22px;
+  overflow:hidden;
+  padding: 10px;
+}
+
+.diagram svg{ width: 100%; height: auto; display:block; }
+
+.wire{
+  fill: none;
+  stroke: rgba(255,255,255,0.18);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 6 10;
+  opacity: 0.9;
+}
+
+.node rect{
+  fill: rgba(255,255,255,0.04);
+  stroke: rgba(255,255,255,0.14);
+  stroke-width: 2;
+  transition: transform .25s ease, fill .25s ease, stroke-color .25s ease, opacity .25s ease;
+}
+
+.node{ cursor:pointer; outline:none; }
+.node:hover rect{
+  fill: rgba(255,255,255,0.07);
+  stroke: rgba(124,92,255,0.45);
+  transform: translateY(-2px);
+}
+.node:focus rect{
+  stroke: rgba(0,212,255,0.55);
+}
+
+.node__title{
+  fill: rgba(255,255,255,0.92);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.node__sub{
+  fill: rgba(255,255,255,0.62);
+  font-size: 13px;
+}
+.node__sub2{
+  fill: rgba(255,255,255,0.46);
+  font-size: 12px;
+  font-family: var(--mono);
+}
+
+.homelab-legend{
+  display:flex;
+  gap:10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.node.is-dim rect{ opacity: 0.28; }
+.node.is-hot rect{
+  stroke: rgba(124,92,255,0.55);
+  fill: rgba(124,92,255,0.12);
+}
+
+.note{
+  margin-top: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.03);
+  border-radius: 18px;
+  padding: 14px;
+}
+.note__title{
+  font-family: var(--mono);
+  color: rgba(255,255,255,0.72);
+  font-size: 12px;
+}
+.note__text{
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.6;
+}
