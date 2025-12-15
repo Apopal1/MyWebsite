@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apostolos Paliouras — Developer • SysAdmin</title>
+  <meta name="description" content="Portfolio του Apostolos Paliouras — Developer με στροφή προς SysAdmin. Projects, skills, εμπειρία και τρόποι επικοινωνίας." />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0b0f1a" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Apostolos Paliouras — Portfolio" />
+  <meta property="og:description" content="Modern interactive portfolio: projects, skills, experience." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Libraries (CDN) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script defer src="app.js"></script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Apostolos Paliouras",
+    "jobTitle": "Developer / SysAdmin",
+    "url": "",
+    "sameAs": [],
+    "knowsAbout": ["Backend", "Networking", "Linux", "Virtualization", "DevOps", "UWB RTLS", "MQTT", "C", "Java", "JavaScript"]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip" href="#main">Πήγαινε στο περιεχόμενο</a>
+
+  <!-- cursor glow -->
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- top nav -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="brand__dot"></span>
+        <span class="brand__text">AP</span>
+        <span class="brand__tag">dev → sysadmin</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#stack">Stack</a>
+        <a href="#experience">Path</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="btn btn--ghost" id="cmdBtn" type="button" aria-haspopup="dialog" aria-controls="cmdk">
+          ⌘K
+        </button>
+        <a class="btn btn--primary magnetic" href="#contact">Hire / Collaborate</a>
+      </div>
+    </div>
+    <div class="nav__progress" aria-hidden="true"><span></span></div>
+  </header>
+
+  <!-- background -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__grid"></div>
+    <div class="bg__noise"></div>
+    <div class="bg__orbs">
+      <span class="orb orb--a"></span>
+      <span class="orb orb--b"></span>
+      <span class="orb orb--c"></span>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- HERO -->
+    <section id="top" class="hero section">
+      <div class="container hero__grid">
+        <div class="hero__left">
+          <div class="kicker reveal">
+            <span class="pill">Available · Remote/GR</span>
+            <span class="pill pill--muted">Linux · Networking · Automation</span>
+          </div>
+
+          <h1 class="headline reveal">
+            Χτίζω <span class="grad">systems</span> & <span class="grad">products</span> που είναι
+            <span class="underline">γρήγορα</span>, <span class="underline">σταθερά</span> και
+            <span class="underline">μετρήσιμα</span>.
+          </h1>
+
+          <p class="subhead reveal">
+            Developer με έμφαση στο backend, τώρα κάνω στροφή προς SysAdmin/Infra.
+            Μου αρέσει να ενώνω <strong>code + ops</strong>: monitoring, automation, deployments, και “boring reliability”.
+          </p>
+
+          <div class="hero__cta reveal">
+            <a class="btn btn--primary magnetic" href="#projects">Δες δουλειά</a>
+            <a class="btn btn--ghost magnetic" href="#experience">Η διαδρομή μου</a>
+            <button class="btn btn--ghost magnetic" id="copyEmail" type="button" data-email="youremail@example.com">
+              Copy email
+            </button>
+          </div>
+
+          <div class="hero__stats reveal">
+            <div class="stat">
+              <div class="stat__num" data-count="9">0</div>
+              <div class="stat__label">Systems / tools</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num" data-count="24">0</div>
+              <div class="stat__label">Projects shipped</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num" data-count="99">0</div>
+              <div class="stat__label">Uptime mindset</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero__right reveal" aria-label="Interactive terminal panel">
+          <div class="terminal">
+            <div class="terminal__top">
+              <span class="dot dot--r"></span>
+              <span class="dot dot--y"></span>
+              <span class="dot dot--g"></span>
+              <span class="terminal__title">ap@home:~</span>
+            </div>
+            <div class="terminal__body" id="terminalBody">
+              <div class="line"><span class="prompt">ap@home</span>:<span class="path">~</span>$ <span class="cmd">whoami</span></div>
+              <div class="out">Apostolos Paliouras</div>
+              <div class="line"><span class="prompt">ap@home</span>:<span class="path">~</span>$ <span class="cmd">cat focus.txt</span></div>
+              <div class="out">backend · linux · networking · observability · automation</div>
+              <div class="line"><span class="prompt">ap@home</span>:<span class="path">~</span>$ <span class="cmd">ls projects</span></div>
+              <div class="out">rtls-uwb/  homelab/  maui-blazor/  inventree/</div>
+              <div class="line"><span class="prompt">ap@home</span>:<span class="path">~</span>$ <span class="cmd blink">_</span></div>
+            </div>
+            <div class="terminal__hint">
+              Tip: πάτα <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>K</kbd> για command palette
+            </div>
+          </div>
+
+          <div class="cards">
+            <button class="mini-card magnetic" data-jump="#projects" type="button">
+              <span class="mini-card__icon">⚡</span>
+              <span class="mini-card__txt">
+                <strong>Highlighted builds</strong>
+                <small>Δες case studies</small>
+              </span>
+            </button>
+            <button class="mini-card magnetic" data-jump="#stack" type="button">
+              <span class="mini-card__icon">🧰</span>
+              <span class="mini-card__txt">
+                <strong>Stack & tooling</strong>
+                <small>Τι χρησιμοποιώ</small>
+              </span>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="title reveal">Projects</h2>
+          <p class="lead reveal">Μοναδική παρουσίαση: φίλτρα, modal case study, και “impact bullets”.</p>
+        </div>
+
+        <div class="filters reveal" role="tablist" aria-label="Project filters">
+          <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="chip" data-filter="infra" role="tab">Infra</button>
+          <button class="chip" data-filter="backend" role="tab">Backend</button>
+          <button class="chip" data-filter="iot" role="tab">IoT / RTLS</button>
+          <button class="chip" data-filter="frontend" role="tab">Frontend</button>
+        </div>
+
+        <div class="grid projects" id="projectGrid">
+          <!-- Card template: set data-tags + data-title + data-desc + data-links -->
+          <article class="card reveal" data-tags="iot,infra,backend" data-title="UWB RTLS (ESP8266 + DWM1000 + MQTT + TDMA)"
+            data-desc="Real-time positioning & proximity system. Anchors/tags με DW1000, συγχρονισμός TDMA, events μέσω MQTT για automation (π.χ. motor triggers < 1m)."
+            data-bullets="Low-latency ranging;Multi-tag scheduling;MQTT events → automation;Serial debugging & Web UI roadmap"
+            data-links='[{"label":"Repo","href":"#"},{"label":"Demo","href":"#"}]'>
+            <div class="card__top">
+              <div class="badge">Case Study</div>
+              <div class="card__icon">📡</div>
+            </div>
+            <h3>UWB RTLS</h3>
+            <p>High-performance RTLS για tracking & proximity automation.</p>
+            <div class="tags">
+              <span>IoT</span><span>MQTT</span><span>TDMA</span><span>ESP8266</span>
+            </div>
+          </article>
+
+          <article class="card reveal" data-tags="infra" data-title="Homelab: Proxmox + VLANs + Backups + Remote Access"
+            data-desc="Home infrastructure με virtualization, segmented networking, monitoring και ασφαλές remote access."
+            data-bullets="Proxmox clusters & templates;VLAN segmentation;Offsite backups;Tailscale / VPN access"
+            data-links='[{"label":"Write-up","href":"#"},{"label":"Diagram","href":"#"}]'>
+            <div class="card__top">
+              <div class="badge badge--muted">Infra</div>
+              <div class="card__icon">🧩</div>
+            </div>
+            <h3>Homelab Infra</h3>
+            <p>Εργαστήριο για sysadmin skills με παραγωγική νοοτροπία.</p>
+            <div class="tags">
+              <span>Proxmox</span><span>Linux</span><span>Networking</span><span>Backups</span>
+            </div>
+          </article>
+
+          <article class="card reveal" data-tags="backend,frontend" data-title="MAUI Blazor App (Modular components)"
+            data-desc="App με Blazor components, καθαρή δομή, και έμφαση σε maintainability."
+            data-bullets="Component-driven UI;Clean separation of concerns;Reusable modules;Better DX"
+            data-links='[{"label":"Repo","href":"#"}]'>
+            <div class="card__top">
+              <div class="badge badge--muted">App</div>
+              <div class="card__icon">🧱</div>
+            </div>
+            <h3>MAUI Blazor</h3>
+            <p>Hybrid app με component architecture και scalable structure.</p>
+            <div class="tags">
+              <span>Blazor</span><span>.NET</span><span>Components</span>
+            </div>
+          </article>
+
+          <article class="card reveal" data-tags="backend,infra" data-title="InvenTree deployment & operations"
+            data-desc="Deployment/ops προσέγγιση: service management, backups, and operational hygiene."
+            data-bullets="Systemd/process control;Backup strategy;Upgrade flow;Troubleshooting playbooks"
+            data-links='[{"label":"Notes","href":"#"}]'>
+            <div class="card__top">
+              <div class="badge badge--muted">Ops</div>
+              <div class="card__icon">🛠️</div>
+            </div>
+            <h3>Self-hosting Ops</h3>
+            <p>Διαδικασίες για να “τρέχουν” σωστά services στην πράξη.</p>
+            <div class="tags">
+              <span>Linux</span><span>Systemd</span><span>Backups</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="title reveal">Stack</h2>
+          <p class="lead reveal">Αυτό που ξέρω, αυτό που χτίζω, αυτό που μετράω.</p>
+        </div>
+
+        <div class="grid two">
+          <div class="panel reveal">
+            <h3>Core</h3>
+            <ul class="list">
+              <li><span>Linux</span><em>services, permissions, tooling</em></li>
+              <li><span>Networking</span><em>routing, VLANs, troubleshooting</em></li>
+              <li><span>Automation</span><em>scripts, CI habits, reproducibility</em></li>
+              <li><span>Backend</span><em>APIs, data, integration</em></li>
+            </ul>
+          </div>
+
+          <div class="panel reveal">
+            <h3>Toolbox</h3>
+            <div class="pillbox">
+              <span class="pill">Proxmox</span>
+              <span class="pill">Docker</span>
+              <span class="pill">Tailscale</span>
+              <span class="pill">MQTT</span>
+              <span class="pill">Git</span>
+              <span class="pill">C / Java / JS</span>
+              <span class="pill">Monitoring (Prom/Logs)</span>
+              <span class="pill">Backups</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="marquee reveal" aria-hidden="true">
+          <div class="marquee__track">
+            <span>reliability</span><span>observability</span><span>automation</span><span>security</span>
+            <span>documentation</span><span>performance</span><span>reliability</span><span>observability</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATH / EXPERIENCE -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="title reveal">Path</h2>
+          <p class="lead reveal">Timeline που “ζωντανεύει” στο scroll.</p>
+        </div>
+
+        <div class="timeline" aria-label="Experience timeline">
+          <div class="step reveal">
+            <div class="step__dot"></div>
+            <div class="step__card">
+              <h3>Developer foundations</h3>
+              <p>Backend-first νοοτροπία: δομή, καθαρότητα, debugging, integration.</p>
+              <div class="meta">C · Java · JavaScript</div>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step__dot"></div>
+            <div class="step__card">
+              <h3>Infra curiosity</h3>
+              <p>Homelab, virtualization, remote access, backups, networking πρακτικά.</p>
+              <div class="meta">Proxmox · Linux · Tailscale</div>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step__dot"></div>
+            <div class="step__card">
+              <h3>Systems mindset</h3>
+              <p>Monitoring, automation, operational playbooks — “make it run, keep it running”.</p>
+              <div class="meta">Observability · Automation · Security</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="cta reveal">
+          <h2>Let’s build something reliable.</h2>
+          <p>Στείλε μήνυμα ή δες τα links μου. (Το email button κάνει copy.)</p>
+          <div class="cta__row">
+            <button class="btn btn--primary magnetic" id="copyEmail2" type="button" data-email="youremail@example.com">Copy email</button>
+            <a class="btn btn--ghost magnetic" href="#" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn btn--ghost magnetic" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn btn--ghost magnetic" href="#" target="_blank" rel="noreferrer">CV (PDF)</a>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <span>© <span id="year"></span> Apostolos Paliouras</span>
+          <span class="footer__sep">·</span>
+          <button class="link" id="toTop" type="button">Back to top ↑</button>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- Project modal -->
+  <dialog class="modal" id="projectModal" aria-label="Project details">
+    <form method="dialog" class="modal__inner">
+      <div class="modal__top">
+        <div>
+          <div class="modal__kicker" id="modalKicker">Case Study</div>
+          <h3 class="modal__title" id="modalTitle">Project title</h3>
+        </div>
+        <button class="btn btn--ghost" value="cancel" aria-label="Close">Esc</button>
+      </div>
+
+      <p class="modal__desc" id="modalDesc"></p>
+
+      <div class="modal__bullets" id="modalBullets" aria-label="Highlights"></div>
+
+      <div class="modal__links" id="modalLinks"></div>
+    </form>
+  </dialog>
+
+  <!-- Command palette -->
+  <dialog class="cmdk" id="cmdk" aria-label="Command palette">
+    <div class="cmdk__inner" role="dialog" aria-modal="true">
+      <div class="cmdk__head">
+        <input id="cmdInput" type="text" autocomplete="off" placeholder="Type a command… (projects, stack, contact, top)" />
+        <button class="btn btn--ghost" id="cmdClose" type="button" aria-label="Close">Esc</button>
+      </div>
+      <div class="cmdk__list" id="cmdList" role="listbox" aria-label="Commands"></div>
+      <div class="cmdk__foot">Enter to run · ↑/↓ navigate · Esc close</div>
+    </div>
+  </dialog>
+
+</body>
+</html>
